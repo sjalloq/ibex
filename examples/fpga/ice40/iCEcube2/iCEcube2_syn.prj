@@ -1,0 +1,76 @@
+#-- Synopsys, Inc.
+#-- Project file C:\Git\ibex_sjj\examples\fpga\ice40\iCEcube2\iCEcube2_syn.prj
+#project files
+
+add_file -verilog -lib work "../../../../rtl/ibex_pkg.sv" 
+add_file -verilog -lib work "../rtl/clkgen.sv" 
+add_file -verilog -lib work "../rtl/fpga_top.sv" 
+add_file -verilog -lib work "../rtl/prim_clock_gating.sv" 
+add_file -verilog -lib work "../rtl/ram_1p.sv" 
+add_file -verilog -lib work "../../../../rtl/ibex_int_controller.sv" 
+add_file -verilog -lib work "../../../../rtl/ibex_load_store_unit.sv" 
+add_file -verilog -lib work "../../../../rtl/ibex_multdiv_fast.sv" 
+add_file -verilog -lib work "../../../../rtl/ibex_multdiv_slow.sv" 
+add_file -verilog -lib work "../../../../rtl/ibex_prefetch_buffer.sv" 
+add_file -verilog -lib work "../../../../rtl/ibex_register_file_ff.sv" 
+add_file -verilog -lib work "../../../../rtl/ibex_alu.sv" 
+add_file -verilog -lib work "../../../../rtl/ibex_compressed_decoder.sv" 
+add_file -verilog -lib work "../../../../rtl/ibex_controller.sv" 
+add_file -verilog -lib work "../../../../rtl/ibex_core.sv" 
+add_file -verilog -lib work "../../../../rtl/ibex_cs_registers.sv" 
+add_file -verilog -lib work "../../../../rtl/ibex_decoder.sv" 
+add_file -verilog -lib work "../../../../rtl/ibex_ex_block.sv" 
+add_file -verilog -lib work "../../../../rtl/ibex_fetch_fifo.sv" 
+add_file -verilog -lib work "../../../../rtl/ibex_id_stage.sv" 
+add_file -verilog -lib work "../../../../rtl/ibex_if_stage.sv" 
+#implementation: "iCE40UP5K"
+impl -add iCE40UP5K -type fpga
+
+#implementation attributes
+set_option -vlog_std v2001
+set_option -project_relative_includes 1
+
+#device options
+set_option -technology SBTiCE40UP
+set_option -part iCE40UP5K
+set_option -package UWG30
+set_option -speed_grade 
+set_option -part_companion ""
+
+#compilation/mapping options
+
+# mapper_options
+set_option -frequency auto
+set_option -write_verilog 0
+set_option -write_vhdl 0
+
+# Silicon Blue iCE40UP
+set_option -maxfan 10000
+set_option -disable_io_insertion 0
+set_option -pipe 1
+set_option -retiming 0
+set_option -update_models_cp 0
+set_option -fixgatedclocks 2
+set_option -fixgeneratedclocks 0
+
+# NFilter
+set_option -popfeed 0
+set_option -constprop 0
+set_option -createhierarchy 0
+
+# sequential_optimization_options
+set_option -symbolic_fsm_compiler 1
+
+# Compiler Options
+set_option -compiler_compatible 0
+set_option -resource_sharing 1
+
+#automatic place and route (vendor) options
+set_option -write_apr_constraint 1
+
+#set result format/file last
+project -result_format "edif"
+project -result_file ./iCE40UP5K/iCEcube2.edf
+project -log_file "./iCE40UP5K/iCEcube2.srr"
+impl -active iCE40UP5K
+project -run synthesis -clean
